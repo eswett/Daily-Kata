@@ -1,5 +1,7 @@
 package com.smt.kata.math;
 
+import java.util.HashSet;
+
 /****************************************************************************
  * <b>Title</b>: PythagoreamTriplet.java
  * <b>Project</b>: SMT-Kata
@@ -21,6 +23,7 @@ package com.smt.kata.math;
  * @updates:
  ****************************************************************************/
 public class PythagoreamTriplet {
+	HashSet<Integer> tripleSet = new HashSet<>();
 
 	/**
 	 * Checks to see if any of the triplets in the values array make a 
@@ -29,6 +32,23 @@ public class PythagoreamTriplet {
 	 * @return True if 3 values match pythagoreams thereom.  False otherwise
 	 */
 	public boolean hasMatch(int[] values) {
-		return values == null;
+		for(int val: values) {
+			tripleSet.add(val * val);
+		}
+		for(int i = 0; i < values.length; i++)
+		{
+			for(int j = i + 1; j < values.length; j++) {
+				if(tripleSet.contains(values[i] * values[i] + values[j] * values[j])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		PythagoreamTriplet pt = new PythagoreamTriplet();
+		int[] values = {9, 3, 7, 5, 4};
+		System.out.println(pt.hasMatch(values));
 	}
 }

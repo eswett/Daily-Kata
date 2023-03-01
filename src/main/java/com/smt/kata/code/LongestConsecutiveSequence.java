@@ -29,12 +29,52 @@ package com.smt.kata.code;
  ****************************************************************************/
 public class LongestConsecutiveSequence {
 	
+	public static void main(String[] args) {
+		LongestConsecutiveSequence lcs = new LongestConsecutiveSequence();
+		int [] nums = {100,4,200,1,3,2};
+		int [] newArr = lcs.bubbleSort(nums);
+		System.out.print(lcs.calculate(newArr));
+	}
+	
 	/**
+	 * Function that performs bubble sort on an array of size N
+	 * @param arr
+	 * @return
+	 */
+	public int[] bubbleSort(int[] arr) {
+		int N = arr.length;
+		for(int i = 0; i < N - 1; i++) {
+			for(int j = 0; j < N - i - 1; j++) {
+				if(arr[j] > arr[j+1]) {
+					int temp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j+1] = temp;
+				}
+			}
+		}
+		return arr;
+	}
+	
+	/**						
 	 * Finds the longest sequence of numbers on the array
 	 * @param items Items to be calculated against
 	 * @return Largest sequence of numbers in the array
 	 */
 	public int calculate(int[] items) {
-		return items.length;
+		int [] newArr = bubbleSort(items);
+		int left = 0, right = 1, maxLength = 0, currMax = 0;
+		while(left < newArr.length - 1) {
+			if(newArr[left] == newArr[right] + (right - left)) {
+				right++;
+				currMax = right - left + 1;
+				maxLength = Math.max(currMax, maxLength);
+			} else {
+				left++;
+				right++;
+			}
+		}
+		return maxLength;
 	}
+	
+	
 }
