@@ -35,10 +35,9 @@ public class OneFingerDistance {
 
 	String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-
 	public static void main(String[] args) {
 		OneFingerDistance ofd = new OneFingerDistance();
-		ofd.calculate("boost");
+		System.out.println(ofd.calculate("Thisisthetimeforallgoodmen"));
 	}
 
 	/**
@@ -48,40 +47,35 @@ public class OneFingerDistance {
 	 * @return distance between the letters
 	 */
 	public int calculate(String word) {
-
-		if(word == null || word.equals("") || word.equals(" ") || word.length() == 1 || StringUtils.isAlpha(word) == false) {
+		// edge cases
+		if (word == null || word.equals("") || word.equals(" ") || word.length() == 1
+				|| StringUtils.isAlpha(word) == false) {
 			return 0;
 		}
 
+		// to ensure we're comparing to the right values
+		word = word.toLowerCase();
+
 		// make a stack and push each character in the string into it
 		Stack<Character> stack = new Stack<>();
-		int result = 0;
+		int result = 0; // initialize return variable
 
-
-		//to compare against my lowercase alphabet string
-
-		word = word.toLowerCase();
-		
 		for (int i = 0; i < word.length(); i++) {
 			stack.push(word.charAt(i));
 		}
 
 		char right = stack.pop();
-		char left = ' ';
 
-		while(!stack.isEmpty()) {
-			
-			left = stack.pop();
-			System.out.println("Left: " + left + ", Right: " + right );
-			if((left == ' ' || right == ' ') || (left == right)) {
+		while (!stack.isEmpty()) {
+
+			char left = stack.pop();
+			if ((left == ' ' || right == ' ') || (left == right)) {
 				continue;
 			} else {
-				result += (alphabet.indexOf(right) - alphabet.indexOf(left)) - 1;
+				result += Math.max(0, Math.abs((alphabet.indexOf(right) - alphabet.indexOf(left)) - 1));
 			}
 			right = left;
 		}
-		
-		
 
 		// set a result variable to zero
 
