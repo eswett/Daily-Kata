@@ -33,11 +33,39 @@ package com.smt.kata.distance;
 public class MinimumMovesEqual {
 
 	/**
+	 * Helper function to calculate the equal
+	 * @param arr
+	 * @return
+	 */
+	public int average(int[] arr) {
+		int total = 0;
+		for(int i: arr) {
+			total += i;
+		}
+		return total/arr.length;
+	}
+
+	/**
 	 * Calculates the number of moves to make each item in the array the equal
 	 * @param elements Array to make equal
 	 * @return Number of moves to make equal
 	 */
 	public int calculate(int[] elements) {
-		return elements.length;
+		//check for edge cases
+		if (elements == null || elements.length <= 1) return 0;
+
+		int totalDist = 0;
+		int avg = average(elements);
+
+		for(int i: elements) {
+			totalDist += Math.abs(i-avg); //the sum of the differences between each element and the total average is 
+		}
+		return totalDist;
+	}
+
+	public static void main(String[] args) {
+		MinimumMovesEqual mme = new MinimumMovesEqual();
+		int [] myArr = {1, 2, 3};
+		System.out.println(mme.calculate(myArr));
 	}
 }
