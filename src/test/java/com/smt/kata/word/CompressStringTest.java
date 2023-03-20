@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
  * @since Feb 5, 2021
  * @updates:
  ****************************************************************************/
+
 class CompressStringTest {
 
 	@Test

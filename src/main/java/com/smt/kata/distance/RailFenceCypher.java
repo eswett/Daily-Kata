@@ -64,7 +64,26 @@ public class RailFenceCypher {
 	}
 
 	public String encodePhrase(String phrase) {
-        return phrase;
+
+        if(phrase == null || phrase.isEmpty()) return null;
+
+        phrase = phrase.replaceAll("\\s", "").toUpperCase();
+
+        String r1 = "";
+        String r2 = "";
+        String r3 = "";
+
+        for(int i = 0; i < phrase.length(); i++)
+        {
+            if(i % 4 == 0 || i == 0) {
+                r1 += phrase.charAt(i);
+            } else if (i % 2 == 0) {
+                r3 += phrase.charAt(i);
+            } else {
+                r2 += phrase.charAt(i);
+            }
+        }
+        return r1 + r2 + r3;
     }
     
     /**
@@ -73,7 +92,12 @@ public class RailFenceCypher {
      * @return Matrix of the cypher
      */
     public char[][] getMatrixFromPhrase(String phrase) {
-        
+        char [][] matrix = new char[3][phrase.length()];
         return new char[0][];
+    }
+
+    public static void main(String[] args) {
+        RailFenceCypher rfc = new RailFenceCypher();
+        System.out.println(rfc.encodePhrase("we are discovered flee at once"));
     }
 }
